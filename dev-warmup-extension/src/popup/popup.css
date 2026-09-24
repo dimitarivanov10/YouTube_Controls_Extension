@@ -1,0 +1,180 @@
+/* Custom CSS Variables for Theme Configuration */
+:root {
+  --bg-primary: #121214;
+  --bg-secondary: #18181b;
+  --bg-card: #27272a;
+  --bg-hover: #3f3f46;
+  --text-primary: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --accent-color: #6366f1;
+  --accent-hover: #4f46e5;
+  --border-color: #27272a;
+  --font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 280px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Header Component */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.version {
+  font-size: 10px;
+  color: var(--text-muted);
+  background-color: var(--bg-card);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Main Layout Structure */
+.content {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.section-header .section-title {
+  margin-bottom: 0;
+}
+
+/* Speed Button Grid Layout */
+.speed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.btn {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--accent-color);
+  color: #ffffff;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Cookie Inspector Component */
+.badge {
+  background-color: var(--accent-color);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+.cookie-container {
+  max-height: 140px;
+  overflow-y: auto;
+  background-color: #09090b;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.status-message {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-align: center;
+  padding: 6px 0;
+}
+
+.cookie-item {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+}
+
+.cookie-item:last-child {
+  border-bottom: none;
+}
+
+.cookie-name {
+  color: #38bdf8;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.cookie-value {
+  color: var(--text-muted);
+  word-break: break-all;
+  font-size: 10px;
+}
+
+/* Custom Scrollbar for Cookie Container */
+.cookie-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cookie-container::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+.cookie-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.cookie-container::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
