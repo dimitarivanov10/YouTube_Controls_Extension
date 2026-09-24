@@ -30,7 +30,7 @@
       toast = document.createElement("div");
       toast.id = "dev-tools-speed-toast";
       toast.style.cssText = `
-        position: absolute;
+        position: fixed;
         top: 20px;
         right: 20px;
         background: rgba(0, 0, 0, 0.8);
@@ -48,10 +48,10 @@
     }
     toast.innerText = `Speed: ${currentSpeed.toFixed(2)}x`;
     toast.style.opacity = "1";
-  }
 
-  clearTimeout(window.toastTimeout);
-  window.toastTimeout = setTimeout(() => {
-    toast.style.opacity = "0";
-  }, 1200);
+    clearTimeout(window.toastTimeout);
+    window.toastTimeout = setTimeout(() => {
+      toast.style.opacity = "0";
+    }, 1200);
+  }
 })();
