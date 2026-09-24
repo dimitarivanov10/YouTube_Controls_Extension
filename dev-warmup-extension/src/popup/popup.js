@@ -72,3 +72,16 @@ function renderCookieList(container, cookies) {
     )
     .join("");
 }
+
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, (match) => {
+    const escapeMap = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    return escapeMap[match];
+  });
+}
