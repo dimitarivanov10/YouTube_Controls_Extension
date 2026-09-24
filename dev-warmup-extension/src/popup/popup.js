@@ -34,27 +34,39 @@ function applyVideoSpeed(tabId, speed) {
   });
 }
 
-async function initializeCookieViewer(activeTab) {
+async function initializeCookieViewer() {
   const container = document.getElementById("cookie-list");
   const countBadge = document.getElementById("cookie-count");
 
-  if (!activeTab?.url || activeTab.url.startsWith("chrome://")) {
-    container.innerText = "Cannot read cookies for system pages.";
-    return;
-  }
+  if (!container) return;
 
   try {
-    const cookies = await cookies.getAll({ url: activeTab.url });
-    countBadge.innerText = cookies.length;
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
 
-    if (cookies.length === 0) {
-      container.innerText = "No active cookies found for this domain. ";
+    if (!tab || !tab.url) {
+      container.innerHTML = `<p class="status-message">No active page found.</p>`;
       return;
     }
-    renderCookieList(container, cookies);
+
+    if (tab.url.startsWith("chrome://") || tab.url.startsWith("edge://")) {
+      container.innerHTML = `<p class="status-message">Cannot read cookies on internal pages.</p>`;
+      if (countBadge) countBadge.innerText = "0";
+      return;
+    }
+
+    const fetchedCookies = await chrome.cookies.getAll({ url: tab.url });
+
+    if (countBadge) {
+      countBadge.innerText = fetchedCookies.length;
+    }
+
+    renderCookieList(container, fetchedCookies);
   } catch (error) {
-    console.error("[Dev Tools] Error fetching cookies: ", error);
-    container.innerText = "Failed to load page cookies. ";
+    console.error("[Dev Tools] Error fetching cookies:", error);
+    container.innerHTML = `<p class="status-message">Failed to load page cookies.</p>`;
   }
 }
 
