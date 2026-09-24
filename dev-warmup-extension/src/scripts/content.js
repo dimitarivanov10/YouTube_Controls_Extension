@@ -6,7 +6,7 @@
     const isEditingText =
       activeElement.tagName === "INPUT" ||
       activeElement.tagName === "TEXTAREA" ||
-      activeElement.isContendEditable;
+      activeElement.isContentEditable;
 
     if (isEditingText) return;
 
@@ -15,10 +15,12 @@
 
     if (event.shiftKey && event.key === ">") {
       video.playbackRate = Math.min(video.playbackRate + 0.25, 16.0);
+      showSpeedToast(video.playbackRate);
     }
 
     if (event.shiftKey && event.key === "<") {
-      video.playbackRate = Math.max(video.playbackRate - 0.25, 16.0);
+      video.playbackRate = Math.max(video.playbackRate - 0.25, 0.25);
+      showSpeedToast(video.playbackRate);
     }
   });
 
