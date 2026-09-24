@@ -2,15 +2,14 @@
   "manifest_version": 3,
   "name": "Dev Warmup Tools",
   "version": "1.0.0",
-  "description": "YouTube speed controller and active tab cookie viewer.",
-  "permissions": ["activeTab", "scripting", "cookies"],
+  "permissions": ["activeTab", "cookies", "scripting"],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "src/popup/popup.html"
   },
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],
+      "matches": ["*://*.youtube.com/*"],
       "js": ["src/scripts/content.js"]
     }
   ]
