@@ -51,8 +51,24 @@ async function initializeCookieViewer(activeTab) {
       container.innerText = "No active cookies found for this domain. ";
       return;
     }
+    renderCookieList(container, cookies);
   } catch (error) {
     console.error("[Dev Tools] Error fetching cookies: ", error);
     container.innerText = "Failed to load page cookies. ";
   }
+}
+
+function renderCookieList(container, cookies) {
+  container.innerHTML = cookies
+    .slice(0, 15)
+    .map(
+      (cookie) =>
+        `
+      <div class="cookie-item">
+        <span class="cookie-name">${escapeHtml(cookie.name)}</span>
+        <span class="cookie-value">${escapeHtml(cookie.value)}</span>
+      </div>
+    `,
+    )
+    .join("");
 }
