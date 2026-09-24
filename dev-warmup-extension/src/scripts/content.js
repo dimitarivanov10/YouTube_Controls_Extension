@@ -47,4 +47,9 @@
     toast.innerText = `Speed: ${currentSpeed.toFixed(2)}x`;
     toast.style.opacity = "1";
   }
+
+  clearTimeout(window.toastTimeout);
+  window.toastTimeout = setTimeout(() => {
+    toast.style.opacity = "0";
+  }, 1200);
 })();
