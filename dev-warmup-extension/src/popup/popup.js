@@ -11,7 +11,24 @@ function initializeSpeedControls(activeTab) {
 
   speedButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        const targetSpeed = parseFloat(button.getAttribute('data-speed'));
+      const targetSpeed = parseFloat(button.getAttribute("data-speed"));
+      applyVideoSpeed(activeTab.id, targetSpeed);
     });
+  });
+}
+
+function applyVideoSpeed(tabId, speed) {
+  chrome.scripting.executeScript({
+    target: { tabId },
+    func: (playbackRate) => {
+      const video = document.querySelector("video");
+      if (video) {
+        video.playbackRate = playbackRate;
+        console.log(`[Dev Tools] Video speed set to ${playbackRate}x`);
+      } else {
+        alert("No active video element found on this page. ");
+      }
+    },
+    args: [speed],
   });
 }
