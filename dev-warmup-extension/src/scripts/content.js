@@ -1,6 +1,8 @@
 (function () {
   console.log(`[Dev Tools] Content script injected on YouTube. `);
 
+  let toastTimeout = null;
+
   document.addEventListener("keydown", (event) => {
     const activeElement = document.activeElement;
     const isEditingText =
@@ -49,8 +51,11 @@
     toast.innerText = `Speed: ${currentSpeed.toFixed(2)}x`;
     toast.style.opacity = "1";
 
-    clearTimeout(window.toastTimeout);
-    window.toastTimeout = setTimeout(() => {
+    if (toastTimeout) {
+      clearTimeout(toastTimeout);
+    }
+
+    toastTimeout = setTimeout(() => {
       toast.style.opacity = "0";
     }, 1200);
   }
