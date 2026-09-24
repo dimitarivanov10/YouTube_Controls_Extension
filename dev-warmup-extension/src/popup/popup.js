@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentWindow: true,
   });
   initializeSpeedControls(activeTab);
+  initializeCookieViewer(activeTab);
 });
 
 function initializeSpeedControls(activeTab) {
@@ -31,4 +32,27 @@ function applyVideoSpeed(tabId, speed) {
     },
     args: [speed],
   });
+}
+
+async function initializeCookieViewer(activeTab) {
+  const container = document.getElementById("cookie-list");
+  const countBadge = document.getElementById("cookie-count");
+
+  if (!activeTab?.url || activeTab.url.startsWith("chrome://")) {
+    container.innerText = "Cannot read cookies for system pages.";
+    return;
+  }
+
+  try {
+    const cookies = await cookies.getAll({ url: activeTab.url });
+    countBadge.innerText = cookies.length;
+
+    if (cookies.length === 0) {
+      container.innerText = "No active cookies found for this domain. ";
+      return;
+    }
+  } catch (error) {
+    console.error("[Dev Tools] Error fetching cookies: ", error);
+    container.innerText = "Failed to load page cookies. ";
+  }
 }
